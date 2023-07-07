@@ -3,6 +3,7 @@ package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlung;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.platzverkauf.PlatzVerkaufsWerkzeug;
 
@@ -20,8 +21,10 @@ public class BezahlungsWerkzeug {
     /**
      * Initialisiert dieses Werkzeug.
      */
-    public BezahlungsWerkzeug(PlatzVerkaufsWerkzeug platzVerkaufsWerkzeug, Vorstellung vorstellung) {
-        _ui = new BezahlungsWerkzeugUI();
+    public BezahlungsWerkzeug(PlatzVerkaufsWerkzeug platzVerkaufsWerkzeug, Vorstellung vorstellung,
+            Geldbetrag geldbetrag) {
+        System.out.println("TEST " + geldbetrag.getFormartiertenBetrag());
+        _ui = new BezahlungsWerkzeugUI(geldbetrag);
         _platzVerkaufsWerkzeug = platzVerkaufsWerkzeug;
         _vorstellung = vorstellung;
         registriereUIAktionen();
@@ -51,7 +54,7 @@ public class BezahlungsWerkzeug {
     /**
      * Starten der Barzahlung.
      */
-    public void barzahlungstarten() {
+    public void barzahlungstarten(Geldbetrag gesammtSumme) {
         _ui.oeffneDialog();
     }
 

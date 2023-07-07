@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
+
 /**
  * * Die GUI des {@link BezahlungsWerkzeug}.
  * 
@@ -17,8 +19,10 @@ public class BezahlungsWerkzeugUI {
     private JDialog _modal;
     private JButton _okayButton;
     private JButton _cancelButton;
+    private Geldbetrag _geldbetrag;
 
-    public BezahlungsWerkzeugUI() {
+    public BezahlungsWerkzeugUI(Geldbetrag geldbetrag) {
+        _geldbetrag = geldbetrag;
         _modal = erstelleDialog();
     }
 
@@ -34,6 +38,9 @@ public class BezahlungsWerkzeugUI {
 
         JLabel label = new JLabel("Barzahlung");
         dialog.add(label, BorderLayout.NORTH);
+
+        JLabel _gesammtSumme = new JLabel(_geldbetrag.getFormartiertenBetrag());
+        dialog.add(_gesammtSumme, BorderLayout.CENTER);
 
         _okayButton = new JButton("OK");
         dialog.add(_okayButton, BorderLayout.SOUTH);

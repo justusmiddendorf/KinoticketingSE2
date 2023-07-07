@@ -28,12 +28,14 @@ public class PlatzVerkaufsWerkzeug {
     private Vorstellung _vorstellung;
 
     private PlatzVerkaufsWerkzeugUI _ui;
+    private Geldbetrag _geldBetrag;
 
     /**
      * Initialisiert das PlatzVerkaufsWerkzeug.
      */
     public PlatzVerkaufsWerkzeug() {
         _ui = new PlatzVerkaufsWerkzeugUI();
+        _geldBetrag = Geldbetrag.select(0, 0);
         registriereUIAktionen();
         // Am Anfang wird keine Vorstellung angezeigt:
         setVorstellung(null);
@@ -84,10 +86,8 @@ public class PlatzVerkaufsWerkzeug {
      * Startet die Barzahlung.
      */
     private void fuehreBarzahlungDurch() {
-        System.out.println("TEST");
-
-        BezahlungsWerkzeug bezahlungsWerkzeug = new BezahlungsWerkzeug(this, _vorstellung);
-        bezahlungsWerkzeug.barzahlungstarten();
+        BezahlungsWerkzeug bezahlungsWerkzeug = new BezahlungsWerkzeug(this, _vorstellung, _geldBetrag);
+        bezahlungsWerkzeug.barzahlungstarten(_geldBetrag);
     }
 
     /**
@@ -110,6 +110,7 @@ public class PlatzVerkaufsWerkzeug {
     private void aktualisierePreisanzeige(Set<Platz> plaetze) {
         if (istVerkaufenMoeglich(plaetze)) {
             Geldbetrag preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            _geldBetrag = preis;
             _ui.getPreisLabel()
                     .setText("Gesamtpreis: " + preis.getFormartiertenBetrag());
         } else if (istStornierenMoeglich(plaetze)) {
