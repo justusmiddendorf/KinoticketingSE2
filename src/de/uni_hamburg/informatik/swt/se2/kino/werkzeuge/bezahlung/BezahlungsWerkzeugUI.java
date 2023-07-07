@@ -71,4 +71,13 @@ public class BezahlungsWerkzeugUI {
     public JButton getokayButton() {
         return _okayButton;
     }
+
+    /**
+     * Gibt das Modal zurück
+     * 
+     * @return Modal gibt das Modal zurück
+     */
+    public JDialog getModal() {
+        return _modal;
+    }
 }

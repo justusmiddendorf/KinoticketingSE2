@@ -27,15 +27,14 @@ public class BezahlungsWerkzeug {
         _ui.getCancelButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Cancel");
+                _ui.getModal().setVisible(false);
             }
         });
 
         _ui.getokayButton().addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("OKAY");
+                _ui.getModal().setVisible(false);
             }
 
         });
