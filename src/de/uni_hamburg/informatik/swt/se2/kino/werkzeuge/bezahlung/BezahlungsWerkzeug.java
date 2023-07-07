@@ -22,16 +22,20 @@ public class BezahlungsWerkzeug {
     private BezahlungsWerkzeugUI _ui;
     private PlatzVerkaufsWerkzeug _platzVerkaufsWerkzeug;
     private Vorstellung _vorstellung;
+    private Geldbetrag _zuZahlen;
 
     /**
      * Initialisiert dieses Werkzeug.
      */
     public BezahlungsWerkzeug(PlatzVerkaufsWerkzeug platzVerkaufsWerkzeug, Vorstellung vorstellung,
             Geldbetrag geldbetrag) {
-        System.out.println("TEST " + geldbetrag.getFormartiertenBetrag());
+
         _ui = new BezahlungsWerkzeugUI(geldbetrag);
+
         _platzVerkaufsWerkzeug = platzVerkaufsWerkzeug;
         _vorstellung = vorstellung;
+        _zuZahlen = geldbetrag;
+
         registriereUIAktionen();
     }
 
@@ -88,6 +92,13 @@ public class BezahlungsWerkzeug {
                     if (matcher.matches()) {
                         _ui.getErrorLabel().setText("");
                         _ui.getokayButton().setEnabled(true);
+
+                        Geldbetrag gegebenerBetrag = Geldbetrag.stringtoGeldbetrag(input);
+
+                        if (Geldbetrag.istGroesserGleich(_zuZahlen, gegebenerBetrag)) {
+                            _ui.getErrorLabel().setText("Zu wenig Geld");
+                            _ui.getokayButton().setEnabled(false);
+                        }
                     } else {
                         _ui.getErrorLabel().setText("Ungültiger Eintrag");
                         _ui.getokayButton().setEnabled(false);
@@ -108,4 +119,5 @@ public class BezahlungsWerkzeug {
     public Geldbetrag berechneRestbetrag(Geldbetrag zuZahlend, Geldbetrag kosten) {
         return Geldbetrag.select(0, 0);
     }
+
 }

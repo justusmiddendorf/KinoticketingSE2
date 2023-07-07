@@ -24,6 +24,7 @@ public class BezahlungsWerkzeugUI {
     private Geldbetrag _geldbetrag;
     private JTextField _textField;
     private JLabel _errorLabel;
+    private JLabel _rueckGeldLabel;
 
     public BezahlungsWerkzeugUI(Geldbetrag geldbetrag) {
         _geldbetrag = geldbetrag;
@@ -45,7 +46,7 @@ public class BezahlungsWerkzeugUI {
         _textField = new JTextField("0,00");
         dialog.add(_textField);
 
-        _errorLabel = new JLabel();
+        _errorLabel = new JLabel("Zu wenig Geld");
         _errorLabel.setForeground(Color.RED);
         dialog.add(_errorLabel);
 
@@ -53,6 +54,7 @@ public class BezahlungsWerkzeugUI {
         dialog.add(_gesammtSumme, BorderLayout.CENTER);
 
         _okayButton = new JButton("OK");
+        _okayButton.setEnabled(false);
         dialog.add(_okayButton, BorderLayout.SOUTH);
 
         _cancelButton = new JButton("Abbruch");
@@ -115,4 +117,13 @@ public class BezahlungsWerkzeugUI {
     public JLabel getErrorLabel() {
         return _errorLabel;
     }
+
+    /**
+     * Gibt das Label mit dem Rückgeld zurück
+     * 
+     * @return JLabel. Rückgeld
+     */
+    // public JLabel getRueckgeldLabel() {
+    // return _rueckGeldLabel;
+    // }
 }

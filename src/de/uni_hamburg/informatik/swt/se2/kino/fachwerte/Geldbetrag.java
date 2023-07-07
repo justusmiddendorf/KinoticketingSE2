@@ -9,8 +9,7 @@ import java.util.Map;
  * @author Furkan
  * @version 17.06.2023
  */
-public final class Geldbetrag
-{
+public final class Geldbetrag {
     /**
      * Der Euro Anteil des Geldbetrages (die Stellen vor dem Komma).
      */
@@ -28,8 +27,7 @@ public final class Geldbetrag
      * 
      * @param eurocent Eurocent kombinieren Euro und Cent in einem Wert ohne Komma
      */
-    Geldbetrag(int eurocent)
-    {
+    Geldbetrag(int eurocent) {
         _euroAnteil = eurocent / 100;
         _centAnteil = eurocent % 100;
     }
@@ -40,14 +38,12 @@ public final class Geldbetrag
      * @param euroAnteil Euro Teil des Geldbetrages
      * @param centAnteil Cent Teil des Geldbetrages
      */
-    private Geldbetrag(int euroAnteil, int centAnteil)
-    {
+    private Geldbetrag(int euroAnteil, int centAnteil) {
         _euroAnteil = euroAnteil;
         _centAnteil = centAnteil;
     }
 
-    public static Geldbetrag select(int euroAnteil, int centAnteil)
-    {
+    public static Geldbetrag select(int euroAnteil, int centAnteil) {
         assert istGueltigerEuroAnteil(
                 euroAnteil) : "Vorbedingung verletzt: istGueltigerEuroAnteil(euroAnteil)";
         assert istGueltigerCentAnteil(
@@ -68,8 +64,7 @@ public final class Geldbetrag
      * 
      * @return True wenn wir keine negativen Euro haben.
      */
-    public static boolean istGueltigerEuroAnteil(int euroAnteil)
-    {
+    public static boolean istGueltigerEuroAnteil(int euroAnteil) {
         return euroAnteil >= 0;
     }
 
@@ -80,8 +75,7 @@ public final class Geldbetrag
      * 
      * @return True wenn die Cent so akzeptiert werden können.
      */
-    public static boolean istGueltigerCentAnteil(int centAnteil)
-    {
+    public static boolean istGueltigerCentAnteil(int centAnteil) {
         return centAnteil >= 0 && centAnteil < 100;
     }
 
@@ -92,13 +86,12 @@ public final class Geldbetrag
      * @param summand2 Der zweite Geldbetrag
      * @return Die Summe der Geldbeträge
      * 
-     * @require summand1 != null 
-     * @require summand2 != null 
+     * @require summand1 != null
+     * @require summand2 != null
      * 
      * @ensure result != null
      */
-    public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2)
-    {
+    public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2) {
         assert summand1 != null : "Vorbedingung verletzt: summand1 != null ";
         assert summand2 != null : "Vorbedingung verletzt: summand2 != null ";
 
@@ -117,8 +110,7 @@ public final class Geldbetrag
      * 
      * @ensure result != null
      */
-    public Geldbetrag addiere(Geldbetrag summand)
-    {
+    public Geldbetrag addiere(Geldbetrag summand) {
         assert summand != null : "Vorbedingung verletzt: summand != null ";
 
         int summe = getCentBetrag() + summand.getCentBetrag();
@@ -135,15 +127,12 @@ public final class Geldbetrag
      * @return Die Differenz als neuer Geldbetrag
      */
     public static Geldbetrag berechneDifferenz(Geldbetrag betrag1,
-            Geldbetrag betrag2)
-    {
-        if (istGroesserGleich(betrag1, betrag2))
-        {
+            Geldbetrag betrag2) {
+        if (istGroesserGleich(betrag1, betrag2)) {
             int euroAnteil = betrag1.getEuroAnteil() - betrag2.getEuroAnteil();
             int centAnteil = betrag1.getCentAnteil() - betrag2.getCentAnteil();
 
-            if (centAnteil < 0)
-            {
+            if (centAnteil < 0) {
                 euroAnteil--;
                 centAnteil += 100;
             }
@@ -155,7 +144,8 @@ public final class Geldbetrag
     }
 
     /**
-     * Gleicht zwei Geldbeträge und prüft ob der erste Geldbetrag größer ist als der zweite.
+     * Gleicht zwei Geldbeträge und prüft ob der erste Geldbetrag größer ist als der
+     * zweite.
      * 
      * @param betrag1 Der erste Geldbetrag
      * @param betrag2 Der zweite Geldbetrag
@@ -163,8 +153,7 @@ public final class Geldbetrag
      * @return True wenn der erste Geldbetrag größer ist.
      */
     public static boolean istGroesserGleich(Geldbetrag betrag1,
-            Geldbetrag betrag2)
-    {
+            Geldbetrag betrag2) {
         int euro1 = betrag1.getEuroAnteil();
         int euro2 = betrag2.getEuroAnteil();
         int cent1 = betrag1.getCentAnteil();
@@ -183,8 +172,7 @@ public final class Geldbetrag
      * 
      * @ensure result != null
      */
-    public Geldbetrag multipliziere(int faktor)
-    {
+    public Geldbetrag multipliziere(int faktor) {
         assert faktor >= 0 : "Vorbedingung verletzt: faktor >= 0 ";
 
         int produkt = getCentBetrag() * faktor;
@@ -197,21 +185,18 @@ public final class Geldbetrag
      * 
      * @return Der Geldbetrag mit einem Komma getrennt und als String
      */
-    public String getFormartiertenBetrag()
-    {
+    public String getFormartiertenBetrag() {
         return _euroAnteil + "," + getFormatiertenCentAnteil();
     }
 
     /**
-     * HILFSMETHODE 
+     * HILFSMETHODE
      * Bildet einen String aus dem aktuellen Cent Anteil.
      * 
      * @return Der String des Cent Betrags
      */
-    private String getFormatiertenCentAnteil()
-    {
-        if (_centAnteil < 10)
-        {
+    private String getFormatiertenCentAnteil() {
+        if (_centAnteil < 10) {
             return "0" + _centAnteil;
         }
 
@@ -223,8 +208,7 @@ public final class Geldbetrag
      * 
      * @return Der Euro Anteil
      */
-    public int getEuroAnteil()
-    {
+    public int getEuroAnteil() {
         return _euroAnteil;
     }
 
@@ -233,8 +217,7 @@ public final class Geldbetrag
      * 
      * @return Der Cent Anteil
      */
-    public int getCentAnteil()
-    {
+    public int getCentAnteil() {
         return _centAnteil;
     }
 
@@ -243,8 +226,24 @@ public final class Geldbetrag
      * 
      * @return Der Betrag
      */
-    public int getCentBetrag()
-    {
+    public int getCentBetrag() {
         return _euroAnteil * 100 + _centAnteil;
+    }
+
+    /**
+     * Wandelt einen String in der Richtigen Form in einen Geldbetrag
+     * 
+     * @param input Umzuwandelnder String
+     * @return String als Geldbetrag
+     */
+    public static Geldbetrag stringtoGeldbetrag(String input) {
+
+        String[] parts = input.split(",");
+
+        int firstNumber = Integer.parseInt(parts[0]);
+        int secondNumber = Integer.parseInt(parts[1]);
+
+        Geldbetrag neuerBetrag = select(firstNumber, secondNumber);
+        return neuerBetrag;
     }
 }
