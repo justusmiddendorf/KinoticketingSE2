@@ -28,14 +28,12 @@ public class PlatzVerkaufsWerkzeug {
     private Vorstellung _vorstellung;
 
     private PlatzVerkaufsWerkzeugUI _ui;
-    private BezahlungsWerkzeug _bezahlungsWerkzeug;
 
     /**
      * Initialisiert das PlatzVerkaufsWerkzeug.
      */
-    public PlatzVerkaufsWerkzeug(BezahlungsWerkzeug bezahlungsWerkzeug) {
+    public PlatzVerkaufsWerkzeug() {
         _ui = new PlatzVerkaufsWerkzeugUI();
-        _bezahlungsWerkzeug = bezahlungsWerkzeug;
         registriereUIAktionen();
         // Am Anfang wird keine Vorstellung angezeigt:
         setVorstellung(null);
@@ -87,8 +85,9 @@ public class PlatzVerkaufsWerkzeug {
      */
     private void fuehreBarzahlungDurch() {
         System.out.println("TEST");
-        _bezahlungsWerkzeug.barzahlungstarten();
-        verkaufePlaetze(_vorstellung);
+
+        BezahlungsWerkzeug bezahlungsWerkzeug = new BezahlungsWerkzeug(this, _vorstellung);
+        bezahlungsWerkzeug.barzahlungstarten();
     }
 
     /**
@@ -198,7 +197,7 @@ public class PlatzVerkaufsWerkzeug {
     /**
      * Verkauft die ausgewählten Plaetze.
      */
-    private void verkaufePlaetze(Vorstellung vorstellung) {
+    public void verkaufePlaetze(Vorstellung vorstellung) {
         Set<Platz> plaetze = _ui.getPlatzplan()
                 .getAusgewaehltePlaetze();
         vorstellung.verkaufePlaetze(plaetze);

@@ -8,7 +8,6 @@ import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kino;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Tagesplan;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.SubwerkzeugObserver;
-import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlung.BezahlungsWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.datumsauswaehler.DatumAuswaehlWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.platzverkauf.PlatzVerkaufsWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.vorstellungsauswaehler.VorstellungsAuswaehlWerkzeug;
@@ -32,7 +31,6 @@ public class KassenWerkzeug {
     private PlatzVerkaufsWerkzeug _platzVerkaufsWerkzeug;
     private DatumAuswaehlWerkzeug _datumAuswaehlWerkzeug;
     private VorstellungsAuswaehlWerkzeug _vorstellungAuswaehlWerkzeug;
-    private BezahlungsWerkzeug _bezahlungsWerkzeug;
 
     /**
      * Initialisiert das Kassenwerkzeug.
@@ -47,8 +45,7 @@ public class KassenWerkzeug {
         _kino = kino;
 
         // Subwerkzeuge erstellen
-        _bezahlungsWerkzeug = new BezahlungsWerkzeug();
-        _platzVerkaufsWerkzeug = new PlatzVerkaufsWerkzeug(_bezahlungsWerkzeug);
+        _platzVerkaufsWerkzeug = new PlatzVerkaufsWerkzeug();
         _datumAuswaehlWerkzeug = new DatumAuswaehlWerkzeug();
         _vorstellungAuswaehlWerkzeug = new VorstellungsAuswaehlWerkzeug();
 
