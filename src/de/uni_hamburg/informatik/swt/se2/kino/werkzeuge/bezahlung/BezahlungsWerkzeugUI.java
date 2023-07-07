@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 public class BezahlungsWerkzeugUI {
 
     private JDialog _modal;
+    private JButton _okayButton;
+    private JButton _cancelButton;
 
     public BezahlungsWerkzeugUI() {
         _modal = erstelleDialog();
@@ -33,11 +35,11 @@ public class BezahlungsWerkzeugUI {
         JLabel label = new JLabel("Barzahlung");
         dialog.add(label, BorderLayout.NORTH);
 
-        JButton okayButton = new JButton("OK");
-        dialog.add(okayButton, BorderLayout.SOUTH);
+        _okayButton = new JButton("OK");
+        dialog.add(_okayButton, BorderLayout.SOUTH);
 
-        JButton cancelButton = new JButton("Abbruch");
-        dialog.add(cancelButton, BorderLayout.SOUTH);
+        _cancelButton = new JButton("Abbruch");
+        dialog.add(_cancelButton, BorderLayout.SOUTH);
         // JTextField textField = new JTextField();
         // textField.setSize(300, 20);
         // dialog.add(textField, BorderLayout.CENTER);
@@ -50,5 +52,23 @@ public class BezahlungsWerkzeugUI {
      */
     public void oeffneDialog() {
         _modal.setVisible(true);
+    }
+
+    /**
+     * Gibt den CancelButton zurück.
+     * 
+     * @return CancelButton
+     */
+    public JButton getCancelButton() {
+        return _cancelButton;
+    }
+
+    /**
+     * Gibt den OkayButton zurück.
+     * 
+     * @return OkayButton
+     */
+    public JButton getokayButton() {
+        return _okayButton;
     }
 }
