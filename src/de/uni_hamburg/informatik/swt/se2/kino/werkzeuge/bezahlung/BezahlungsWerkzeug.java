@@ -2,6 +2,11 @@ package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlung;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
@@ -49,6 +54,48 @@ public class BezahlungsWerkzeug {
             }
 
         });
+
+        _ui.getTextField().getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateInput();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateInput();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateInput();
+            }
+
+            /**
+             * Validiert den Input un kontrolliert, ob es sich um einen gültigen Input
+             * handelt.
+             */
+            private void validateInput() {
+                String input = _ui.getTextField().getText();
+                Pattern pattern = Pattern.compile("^-?(0|([1-9]\\d{0,6}))(,\\d{2})?");
+
+                if (input.isEmpty()) {
+                    _ui.getErrorLabel().setText("Bitte gib ein Betrag ein");
+                    _ui.getokayButton().setEnabled(false);
+                } else {
+                    Matcher matcher = pattern.matcher(input);
+                    if (matcher.matches()) {
+                        _ui.getErrorLabel().setText("");
+                        _ui.getokayButton().setEnabled(true);
+                    } else {
+                        _ui.getErrorLabel().setText("Ungültiger Eintrag");
+                        _ui.getokayButton().setEnabled(false);
+                    }
+                }
+            }
+
+        });
     }
 
     /**
@@ -58,4 +105,7 @@ public class BezahlungsWerkzeug {
         _ui.oeffneDialog();
     }
 
+    public Geldbetrag berechneRestbetrag(Geldbetrag zuZahlend, Geldbetrag kosten) {
+        return Geldbetrag.select(0, 0);
+    }
 }

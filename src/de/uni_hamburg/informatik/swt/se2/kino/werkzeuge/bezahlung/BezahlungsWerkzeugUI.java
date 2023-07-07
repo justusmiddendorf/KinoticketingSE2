@@ -1,11 +1,13 @@
 package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlung;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 
@@ -20,6 +22,8 @@ public class BezahlungsWerkzeugUI {
     private JButton _okayButton;
     private JButton _cancelButton;
     private Geldbetrag _geldbetrag;
+    private JTextField _textField;
+    private JLabel _errorLabel;
 
     public BezahlungsWerkzeugUI(Geldbetrag geldbetrag) {
         _geldbetrag = geldbetrag;
@@ -35,11 +39,17 @@ public class BezahlungsWerkzeugUI {
         JDialog dialog = new JDialog();
         dialog.setSize(400, 400);
         dialog.setLayout(new GridLayout(10, 3));
+        dialog.setTitle("Barzahlung");
+        dialog.setModal(true);
 
-        JLabel label = new JLabel("Barzahlung");
-        dialog.add(label, BorderLayout.NORTH);
+        _textField = new JTextField("0,00");
+        dialog.add(_textField);
 
-        JLabel _gesammtSumme = new JLabel(_geldbetrag.getFormartiertenBetrag());
+        _errorLabel = new JLabel();
+        _errorLabel.setForeground(Color.RED);
+        dialog.add(_errorLabel);
+
+        JLabel _gesammtSumme = new JLabel("Zuzahlender Betrag: " + _geldbetrag.getFormartiertenBetrag());
         dialog.add(_gesammtSumme, BorderLayout.CENTER);
 
         _okayButton = new JButton("OK");
@@ -86,5 +96,23 @@ public class BezahlungsWerkzeugUI {
      */
     public JDialog getModal() {
         return _modal;
+    }
+
+    /**
+     * Gibt das Textfeldes zurück
+     * 
+     * @return JTextField.
+     */
+    public JTextField getTextField() {
+        return _textField;
+    }
+
+    /**
+     * Gibt das ErrorLabel zurück
+     * 
+     * @return JLabel
+     */
+    public JLabel getErrorLabel() {
+        return _errorLabel;
     }
 }
