@@ -25,15 +25,12 @@ public class StartupKinoticketverkauf {
          * @param args Aufrufparameter werden ignoriert.
          */
         public static void main(String[] args) {
-                // ! Auskommentiert weil keine assertions in VS Code
-                /*
-                 * if (!assertsEnabled())
-                 * {
-                 * throw new IllegalStateException(
-                 * "Asserts müssen aktiviert sein: Window > Preferences > Java > Installed JREs -> ausgewaehlte JRE markieren und auf Edit klicken > im erscheinenden Dialog bei Default VM Arguments -ea eingeben"
-                 * );
-                 * }
-                 */
+
+                if (!assertsEnabled()) {
+                        throw new IllegalStateException(
+                                        "Asserts müssen aktiviert sein: Window > Preferences > Java > Installed JREs -> ausgewaehlte JRE markieren und auf Edit klicken > im erscheinenden Dialog bei Default VM Arguments -ea eingeben");
+                }
+
                 final Kino kino = erzeugeKinoMitBeispieldaten();
                 SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
