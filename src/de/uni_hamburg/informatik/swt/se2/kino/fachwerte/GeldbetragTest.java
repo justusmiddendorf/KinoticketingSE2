@@ -6,30 +6,28 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class GeldbetragTest
-{
-    //private static Map<String, Geldbetrag> WERTEMENGE = new HashMap<>();
+public class GeldbetragTest {
+    // private static Map<String, Geldbetrag> WERTEMENGE = new HashMap<>();
 
     @Test
-    public void testeKonstruktoren1()
-    {
+    public void testeKonstruktoren1() {
         Geldbetrag g = new Geldbetrag(7550);
         assertEquals(75, g.getEuroAnteil());
         assertEquals(50, g.getCentAnteil());
     }
 
     /**
-    @Test
-    public void testeKonstruktoren2()
-    {
-        Geldbetrag g1 = new Geldbetrag(75, 50);
-        assertEquals(75, g1.getEuroAnteil());
-        assertEquals(50, g1.getCentAnteil());
-    }*/
+     * @Test
+     *       public void testeKonstruktoren2()
+     *       {
+     *       Geldbetrag g1 = new Geldbetrag(75, 50);
+     *       assertEquals(75, g1.getEuroAnteil());
+     *       assertEquals(50, g1.getCentAnteil());
+     *       }
+     */
 
     @Test
-    public void testeSelect()
-    {
+    public void testeSelect() {
         Geldbetrag g1 = Geldbetrag.select(200, 50);
         Geldbetrag g2 = Geldbetrag.select(20, 50);
         Geldbetrag g3 = Geldbetrag.select(020, 5);
@@ -42,29 +40,22 @@ public class GeldbetragTest
     }
 
     @Test
-    public void testeIstGueltigerEuroAnteil()
-    {
-        Geldbetrag geld = new Geldbetrag(500);
-        //assertFalse(geld.istGueltigerEuroAnteil(0));
-        assertFalse(geld.istGueltigerEuroAnteil(-50));
-        assertTrue(geld.istGueltigerEuroAnteil(1));
-        assertTrue(geld.istGueltigerEuroAnteil(10));
+    public void testeIstGueltigerEuroAnteil() {
+        assertFalse(Geldbetrag.istGueltigerEuroAnteil(-50));
+        assertTrue(Geldbetrag.istGueltigerEuroAnteil(1));
+        assertTrue(Geldbetrag.istGueltigerEuroAnteil(10));
     }
 
     @Test
-    public void testeIstGueltigerCentAnteil()
-    {
-        Geldbetrag geld = new Geldbetrag(500);
-        //assertFalse(geld.istGueltigerCentAnteil(0));
-        assertFalse(geld.istGueltigerCentAnteil(-50));
-        assertFalse(geld.istGueltigerCentAnteil(100));
-        assertTrue(geld.istGueltigerCentAnteil(1));
-        assertTrue(geld.istGueltigerCentAnteil(10));
+    public void testeIstGueltigerCentAnteil() {
+        assertFalse(Geldbetrag.istGueltigerCentAnteil(-50));
+        assertFalse(Geldbetrag.istGueltigerCentAnteil(100));
+        assertTrue(Geldbetrag.istGueltigerCentAnteil(1));
+        assertTrue(Geldbetrag.istGueltigerCentAnteil(10));
     }
 
     @Test
-    public void testeAddiere1()
-    {
+    public void testeAddiere1() {
         Geldbetrag g1 = Geldbetrag.select(5, 01);
         Geldbetrag g2 = Geldbetrag.select(10, 50);
         Geldbetrag g3 = Geldbetrag.select(10, 70);
@@ -77,8 +68,7 @@ public class GeldbetragTest
     }
 
     @Test
-    public void testeAddiere2()
-    {
+    public void testeAddiere2() {
         Geldbetrag g1 = Geldbetrag.select(5, 01);
         Geldbetrag g2 = Geldbetrag.select(10, 50);
         Geldbetrag g3 = Geldbetrag.select(10, 70);
@@ -93,8 +83,7 @@ public class GeldbetragTest
     }
 
     @Test
-    public void testeIstGroesserGleich()
-    {
+    public void testeIstGroesserGleich() {
         Geldbetrag g1 = Geldbetrag.select(5, 01);
         Geldbetrag g2 = Geldbetrag.select(10, 50);
         Geldbetrag g3 = Geldbetrag.select(10, 70);
@@ -110,31 +99,29 @@ public class GeldbetragTest
     }
 
     @Test
-    public void testeBerechneDifferenz()
-    {
+    public void testeBerechneDifferenz() {
         Geldbetrag g1 = Geldbetrag.select(5, 01);
         Geldbetrag g2 = Geldbetrag.select(10, 50);
         Geldbetrag g3 = Geldbetrag.select(10, 70);
 
         assertEquals(Geldbetrag.select(5, 49),
                 Geldbetrag.berechneDifferenz(g1, g2));
-        //assertEquals(Geldbetrag.select(0, 0),Geldbetrag.berechneDifferenz(g1, g1));
-        //assertEquals(Geldbetrag.select(0, 20),Geldbetrag.berechneDifferenz(g2, g3));
+        // assertEquals(Geldbetrag.select(0, 0),Geldbetrag.berechneDifferenz(g1, g1));
+        // assertEquals(Geldbetrag.select(0, 20),Geldbetrag.berechneDifferenz(g2, g3));
         assertEquals(Geldbetrag.select(5, 69),
                 Geldbetrag.berechneDifferenz(g1, g3));
     }
 
     @Test
-    public void testeMultipliziere()
-    {
+    public void testeMultipliziere() {
         Geldbetrag g1 = Geldbetrag.select(5, 10);
-        //Geldbetrag g2 = Geldbetrag.select(10, 00);
+        // Geldbetrag g2 = Geldbetrag.select(10, 00);
         Geldbetrag g3 = Geldbetrag.select(10, 50);
 
         assertEquals(Geldbetrag.select(10, 20), g1.multipliziere(2));
         assertEquals(Geldbetrag.select(31, 50), g3.multipliziere(3));
         assertEquals(Geldbetrag.select(25, 50), g1.multipliziere(5));
-        //assertEquals(Geldbetrag.select(20, 00), g1.multipliziere(2));
+        // assertEquals(Geldbetrag.select(20, 00), g1.multipliziere(2));
     }
 
 }
