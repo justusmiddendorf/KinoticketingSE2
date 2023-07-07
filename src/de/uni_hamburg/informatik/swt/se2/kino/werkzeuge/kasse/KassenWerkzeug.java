@@ -20,8 +20,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.vorstellungsauswaehler.V
  * @author SE2-Team
  * @version SoSe 2021
  */
-public class KassenWerkzeug
-{
+public class KassenWerkzeug {
     // Das Material dieses Werkzeugs
     private Kino _kino;
 
@@ -40,8 +39,7 @@ public class KassenWerkzeug
      * 
      * @require kino != null
      */
-    public KassenWerkzeug(Kino kino)
-    {
+    public KassenWerkzeug(Kino kino) {
         assert kino != null : "Vorbedingung verletzt: kino != null";
 
         _kino = kino;
@@ -68,23 +66,18 @@ public class KassenWerkzeug
     /**
      * Erzeugt und registriert die Beobachter, die die Subwerkzeuge beobachten.
      */
-    private void erzeugeListenerFuerSubwerkzeuge()
-    {
-        _datumAuswaehlWerkzeug.registriereBeobachter(new SubwerkzeugObserver()
-        {
+    private void erzeugeListenerFuerSubwerkzeuge() {
+        _datumAuswaehlWerkzeug.registriereBeobachter(new SubwerkzeugObserver() {
             @Override
-            public void reagiereAufAenderung()
-            {
+            public void reagiereAufAenderung() {
                 setzeTagesplanFuerAusgewaehltesDatum();
             }
         });
 
         _vorstellungAuswaehlWerkzeug
-                .registriereBeobachter(new SubwerkzeugObserver()
-                {
+                .registriereBeobachter(new SubwerkzeugObserver() {
                     @Override
-                    public void reagiereAufAenderung()
-                    {
+                    public void reagiereAufAenderung() {
                         setzeAusgewaehlteVorstellung();
                     }
                 });
@@ -93,13 +86,10 @@ public class KassenWerkzeug
     /**
      * Fügt die Funktionalitat zum Beenden-Button hinzu.
      */
-    private void registriereUIAktionen()
-    {
-        _ui.getBeendenButton().addActionListener(new ActionListener()
-        {
+    private void registriereUIAktionen() {
+        _ui.getBeendenButton().addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 reagiereAufBeendenButton();
             }
         });
@@ -109,8 +99,7 @@ public class KassenWerkzeug
      * Setzt den in diesem Werkzeug angezeigten Tagesplan basierend auf dem
      * derzeit im DatumsAuswahlWerkzeug ausgewählten Datum.
      */
-    private void setzeTagesplanFuerAusgewaehltesDatum()
-    {
+    private void setzeTagesplanFuerAusgewaehltesDatum() {
         Tagesplan tagesplan = _kino.getTagesplan(getAusgewaehltesDatum());
         _vorstellungAuswaehlWerkzeug.setTagesplan(tagesplan);
     }
@@ -118,24 +107,21 @@ public class KassenWerkzeug
     /**
      * Passt die Anzeige an, wenn eine andere Vorstellung gewählt wurde.
      */
-    private void setzeAusgewaehlteVorstellung()
-    {
+    private void setzeAusgewaehlteVorstellung() {
         _platzVerkaufsWerkzeug.setVorstellung(getAusgewaehlteVorstellung());
     }
 
     /**
      * Beendet die Anwendung.
      */
-    private void reagiereAufBeendenButton()
-    {
+    private void reagiereAufBeendenButton() {
         _ui.schliesseFenster();
     }
 
     /**
      * Gibt das derzeit gewählte Datum zurück.
      */
-    private Datum getAusgewaehltesDatum()
-    {
+    private Datum getAusgewaehltesDatum() {
         return _datumAuswaehlWerkzeug.getSelektiertesDatum();
     }
 
@@ -143,8 +129,7 @@ public class KassenWerkzeug
      * Gibt die derzeit ausgewaehlte Vorstellung zurück. Wenn keine Vorstellung
      * ausgewählt ist, wird <code>null</code> zurückgegeben.
      */
-    private Vorstellung getAusgewaehlteVorstellung()
-    {
+    private Vorstellung getAusgewaehlteVorstellung() {
         return _vorstellungAuswaehlWerkzeug.getAusgewaehlteVorstellung();
     }
 }
