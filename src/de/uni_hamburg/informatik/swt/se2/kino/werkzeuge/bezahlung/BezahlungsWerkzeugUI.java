@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  * * Die GUI des {@link BezahlungsWerkzeug}.
@@ -17,6 +18,9 @@ public class BezahlungsWerkzeugUI {
     private JDialog _modal;
     private JButton _okayButton;
     private JButton _cancelButton;
+    private JLabel _preisLabel;
+    private JLabel _preisDifferenzLabel;
+    private JTextField _textField;
 
     public BezahlungsWerkzeugUI() {
         _modal = erstelleDialog();
@@ -35,14 +39,21 @@ public class BezahlungsWerkzeugUI {
         JLabel label = new JLabel("Barzahlung");
         dialog.add(label, BorderLayout.NORTH);
 
+        _preisLabel = new JLabel("Summe: ");
+        dialog.add(_preisLabel, BorderLayout.NORTH);
+
+        _preisDifferenzLabel = new JLabel("Restbetrag: ");
+        dialog.add(_preisDifferenzLabel, BorderLayout.NORTH);
+
         _okayButton = new JButton("OK");
         dialog.add(_okayButton, BorderLayout.SOUTH);
 
         _cancelButton = new JButton("Abbruch");
         dialog.add(_cancelButton, BorderLayout.SOUTH);
-        // JTextField textField = new JTextField();
-        // textField.setSize(300, 20);
-        // dialog.add(textField, BorderLayout.CENTER);
+
+        _textField = new JTextField();
+        _textField.setSize(200, 20);
+        dialog.add(_textField, BorderLayout.CENTER);
 
         return dialog;
     }
@@ -79,5 +90,32 @@ public class BezahlungsWerkzeugUI {
      */
     public JDialog getModal() {
         return _modal;
+    }
+
+    /**
+     * Gibt den aktuellen Preis zurück
+     * 
+     * @return Label gibt das Preis Label zurück
+     */
+    public JLabel getPreisLabel() {
+        return _preisLabel;
+    }
+
+    /**
+     * Gibt das Textfield zurück
+     * 
+     * @return Textfield gibt das Text Feld zurück
+     */
+    public JTextField getTextField() {
+        return _textField;
+    }
+
+    /**
+     * Gibt die differenz der eingabe zum Preis zurück
+     * 
+     * @return Label gibt das Differenz Preis Label zurück
+     */
+    public JLabel getPreisDifferenzLabel() {
+        return _preisDifferenzLabel;
     }
 }

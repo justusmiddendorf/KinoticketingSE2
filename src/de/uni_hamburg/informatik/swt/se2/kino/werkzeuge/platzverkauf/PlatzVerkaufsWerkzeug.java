@@ -24,6 +24,8 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlung.BezahlungsWerk
  * @version SoSe 2021
  */
 public class PlatzVerkaufsWerkzeug {
+    private Geldbetrag _preis;
+    
     // Die aktuelle Vorstellung, deren Plätze angezeigt werden. Kann null sein.
     private Vorstellung _vorstellung;
 
@@ -86,7 +88,7 @@ public class PlatzVerkaufsWerkzeug {
     private void fuehreBarzahlungDurch() {
         System.out.println("TEST");
 
-        BezahlungsWerkzeug bezahlungsWerkzeug = new BezahlungsWerkzeug(this, _vorstellung);
+        BezahlungsWerkzeug bezahlungsWerkzeug = new BezahlungsWerkzeug(this, _vorstellung, _preis);
         bezahlungsWerkzeug.barzahlungstarten();
     }
 
@@ -109,13 +111,13 @@ public class PlatzVerkaufsWerkzeug {
      */
     private void aktualisierePreisanzeige(Set<Platz> plaetze) {
         if (istVerkaufenMoeglich(plaetze)) {
-            Geldbetrag preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            _preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ui.getPreisLabel()
-                    .setText("Gesamtpreis: " + preis.getFormartiertenBetrag());
+                    .setText("Gesamtpreis: " + _preis.getFormartiertenBetrag());
         } else if (istStornierenMoeglich(plaetze)) {
-            Geldbetrag preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            _preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ui.getPreisLabel()
-                    .setText("Gesamtstorno: " + preis.getFormartiertenBetrag());
+                    .setText("Gesamtstorno: " + _preis.getFormartiertenBetrag());
         } else if (!plaetze.isEmpty()) {
             _ui.getPreisLabel()
                     .setText("Verkauf und Storno nicht gleichzeitig möglich!");
