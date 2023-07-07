@@ -53,15 +53,15 @@ public class BezahlungsWerkzeugUI {
         JLabel _gesammtSumme = new JLabel("Zuzahlender Betrag: " + _geldbetrag.getFormartiertenBetrag());
         dialog.add(_gesammtSumme, BorderLayout.CENTER);
 
+        _rueckGeldLabel = new JLabel("");
+        dialog.add(_rueckGeldLabel, BorderLayout.CENTER);
+
         _okayButton = new JButton("OK");
         _okayButton.setEnabled(false);
         dialog.add(_okayButton, BorderLayout.SOUTH);
 
         _cancelButton = new JButton("Abbruch");
         dialog.add(_cancelButton, BorderLayout.SOUTH);
-        // JTextField textField = new JTextField();
-        // textField.setSize(300, 20);
-        // dialog.add(textField, BorderLayout.CENTER);
 
         return dialog;
     }
@@ -123,7 +123,7 @@ public class BezahlungsWerkzeugUI {
      * 
      * @return JLabel. Rückgeld
      */
-    // public JLabel getRueckgeldLabel() {
-    // return _rueckGeldLabel;
-    // }
+    public JLabel getRueckgeldLabel() {
+        return _rueckGeldLabel;
+    }
 }

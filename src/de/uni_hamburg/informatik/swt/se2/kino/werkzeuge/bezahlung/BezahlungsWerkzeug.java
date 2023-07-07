@@ -90,15 +90,22 @@ public class BezahlungsWerkzeug {
                 } else {
                     Matcher matcher = pattern.matcher(input);
                     if (matcher.matches()) {
-                        _ui.getErrorLabel().setText("");
-                        _ui.getokayButton().setEnabled(true);
 
                         Geldbetrag gegebenerBetrag = Geldbetrag.stringtoGeldbetrag(input);
+                        Geldbetrag summe = berechneRestbetrag(_zuZahlen, gegebenerBetrag);
 
-                        if (Geldbetrag.istGroesserGleich(_zuZahlen, gegebenerBetrag)) {
+                        if (Geldbetrag.istGroesser(_zuZahlen, gegebenerBetrag)) {
                             _ui.getErrorLabel().setText("Zu wenig Geld");
                             _ui.getokayButton().setEnabled(false);
+
+                            _ui.getRueckgeldLabel().setText("Es fehlen: " + summe.getFormartiertenBetrag());
+
+                        } else {
+                            _ui.getErrorLabel().setText("");
+                            _ui.getokayButton().setEnabled(true);
+                            _ui.getRueckgeldLabel().setText("Dein Rückgeld beträgt: " + summe.getFormartiertenBetrag());
                         }
+
                     } else {
                         _ui.getErrorLabel().setText("Ungültiger Eintrag");
                         _ui.getokayButton().setEnabled(false);
@@ -117,7 +124,19 @@ public class BezahlungsWerkzeug {
     }
 
     public Geldbetrag berechneRestbetrag(Geldbetrag zuZahlend, Geldbetrag kosten) {
-        return Geldbetrag.select(0, 0);
+        Geldbetrag restSumme;
+        try {
+            restSumme = Geldbetrag.subtrahiere(zuZahlend, kosten);
+        } catch (Exception e) {
+            try {
+                restSumme = Geldbetrag.subtrahiere(kosten, zuZahlend);
+            } catch (Exception f) {
+                throw new IllegalArgumentException("Die Werte lassen sich nicht subtraheren");
+            }
+
+        }
+
+        return restSumme;
     }
 
 }

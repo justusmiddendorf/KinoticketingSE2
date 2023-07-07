@@ -119,6 +119,31 @@ public final class Geldbetrag {
     }
 
     /**
+     * Die Subtraktion auf dem Geldbetrag.
+     * 
+     * @param wert1 der Wert von dem Abgezogen wird
+     * @param wert2 der Wert der Abgezogen wird
+     * @return Das Ergebnisse
+     * @throws IllegalArgumentException wenn der erste Wert kleiner ist als der
+     *                                  Zweite
+     */
+    public static Geldbetrag subtrahiere(Geldbetrag wert1, Geldbetrag wert2) {
+
+        if (istGroesserGleich(wert1, wert2)) {
+            int euroAnteil = wert1.getEuroAnteil() - wert2.getEuroAnteil();
+            int centAnteil = wert1.getCentAnteil() - wert2.getCentAnteil();
+
+            if (centAnteil < 0) {
+                euroAnteil--;
+                centAnteil += 100;
+            }
+
+            return select(euroAnteil, centAnteil);
+        }
+        throw new IllegalArgumentException("Der zweite Wert kann nciht vom ersten abgezogen werden, da er größer ist.");
+    }
+
+    /**
      * Berechnet die Differenz aus zwei Geldbeträgen.
      * 
      * @param betrag1 Der erste Geldbetrag
@@ -160,6 +185,25 @@ public final class Geldbetrag {
         int cent2 = betrag2.getCentAnteil();
 
         return euro1 > euro2 || euro1 == euro2 && cent1 >= cent2;
+    }
+
+    /**
+     * Gleicht zwei Geldbeträge und prüft ob der erste Geldbetrag größer ist als der
+     * zweite.
+     * 
+     * @param betrag1 Der erste Geldbetrag
+     * @param betrag2 Der zweite Geldbetrag
+     * 
+     * @return True wenn der erste Geldbetrag größer ist.
+     */
+    public static boolean istGroesser(Geldbetrag betrag1,
+            Geldbetrag betrag2) {
+        int euro1 = betrag1.getEuroAnteil();
+        int euro2 = betrag2.getEuroAnteil();
+        int cent1 = betrag1.getCentAnteil();
+        int cent2 = betrag2.getCentAnteil();
+
+        return euro1 > euro2 || euro1 == euro2 && cent1 > cent2;
     }
 
     /**
