@@ -11,6 +11,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kinosaal;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
+import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlung.BezahlungsWerkzeug;
 
 /**
  * Mit diesem Werkzeug können Plätze verkauft und storniert werden. Es arbeitet
@@ -27,12 +28,14 @@ public class PlatzVerkaufsWerkzeug {
     private Vorstellung _vorstellung;
 
     private PlatzVerkaufsWerkzeugUI _ui;
+    private BezahlungsWerkzeug _bezahlungsWerkzeug;
 
     /**
      * Initialisiert das PlatzVerkaufsWerkzeug.
      */
-    public PlatzVerkaufsWerkzeug() {
+    public PlatzVerkaufsWerkzeug(BezahlungsWerkzeug bezahlungsWerkzeug) {
         _ui = new PlatzVerkaufsWerkzeugUI();
+        _bezahlungsWerkzeug = bezahlungsWerkzeug;
         registriereUIAktionen();
         // Am Anfang wird keine Vorstellung angezeigt:
         setVorstellung(null);
@@ -84,6 +87,7 @@ public class PlatzVerkaufsWerkzeug {
      */
     private void fuehreBarzahlungDurch() {
         System.out.println("TEST");
+        _bezahlungsWerkzeug.barzahlungstarten();
         verkaufePlaetze(_vorstellung);
     }
 

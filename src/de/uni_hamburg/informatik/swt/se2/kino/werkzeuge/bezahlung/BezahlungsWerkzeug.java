@@ -19,4 +19,8 @@ public class BezahlungsWerkzeug {
         _ui = new BezahlungsWerkzeugUI();
     }
 
+    public void barzahlungstarten() {
+        _ui.oeffneDialog();
+    }
+
 }
