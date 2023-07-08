@@ -1,7 +1,5 @@
 package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlung;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,20 +41,11 @@ public class BezahlungsWerkzeug {
      * Fügt der UI die Funktionalität hinzu mit entsprechenden Listenern.
      */
     private void registriereUIAktionen() {
-        _ui.getCancelButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                _ui.getModal().setVisible(false);
-            }
-        });
+        _ui.getCancelButton().addActionListener(e -> _ui.getModal().setVisible(false));
 
-        _ui.getokayButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                _ui.getModal().setVisible(false);
-                _platzVerkaufsWerkzeug.verkaufePlaetze(_vorstellung);
-            }
-
+        _ui.getokayButton().addActionListener(e -> {
+            _ui.getModal().setModal(false);
+            _platzVerkaufsWerkzeug.verkaufePlaetze(_vorstellung);
         });
 
         // Hinzufügen eines documentLiseners
