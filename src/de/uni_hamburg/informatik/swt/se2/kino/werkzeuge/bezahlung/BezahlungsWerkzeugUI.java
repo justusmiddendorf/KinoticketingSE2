@@ -37,8 +37,9 @@ public class BezahlungsWerkzeugUI {
      * @return JDialog der Dialog der angezeigt wird
      */
     private JDialog erstelleDialog() {
+        // Erstellen des Dialoges
         JDialog dialog = new JDialog();
-        dialog.setSize(400, 400);
+        dialog.setSize(400, 300);
         dialog.setLayout(new GridLayout(10, 3));
         dialog.setTitle("Barzahlung");
         dialog.setModal(true);

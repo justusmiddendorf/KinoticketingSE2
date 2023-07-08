@@ -59,6 +59,7 @@ public class BezahlungsWerkzeug {
 
         });
 
+        // Hinzufügen eines documentLiseners
         _ui.getTextField().getDocument().addDocumentListener(new DocumentListener() {
 
             @Override
@@ -77,36 +78,43 @@ public class BezahlungsWerkzeug {
             }
 
             /**
-             * Validiert den Input un kontrolliert, ob es sich um einen gültigen Input
+             * Validiert den Input und kontrolliert, ob es sich um einen gültigen Input
              * handelt.
              */
             private void validateInput() {
                 String input = _ui.getTextField().getText();
-                Pattern pattern = Pattern.compile("^-?(0|([1-9]\\d{0,6}))(,\\d{2})?");
+                Pattern pattern = Pattern.compile("^-?(0|([1-9]\\d{0,6}))(,\\d{2})");
 
+                // Kontrollieren on Input leer ist
                 if (input.isEmpty()) {
+                    // Error Message setzen und Button aus blenden
                     _ui.getErrorLabel().setText("Bitte gib ein Betrag ein");
                     _ui.getokayButton().setEnabled(false);
                 } else {
+                    // Vergleichen des Inputs und des Regex
                     Matcher matcher = pattern.matcher(input);
                     if (matcher.matches()) {
 
+                        // Umwandeln des Strings und Restbetrag errechen
                         Geldbetrag gegebenerBetrag = Geldbetrag.stringtoGeldbetrag(input);
                         Geldbetrag summe = berechneRestbetrag(_zuZahlen, gegebenerBetrag);
 
+                        // Kontrolle ob das Geld reicht
                         if (Geldbetrag.istGroesser(_zuZahlen, gegebenerBetrag)) {
+                            // Error Message, verbleibender Betrag setzen und Button aus blenden
                             _ui.getErrorLabel().setText("Zu wenig Geld");
                             _ui.getokayButton().setEnabled(false);
-
                             _ui.getRueckgeldLabel().setText("Es fehlen: " + summe.getFormartiertenBetrag());
 
                         } else {
+                            // Error Message ausblenden, Rückgeld anzeigen und Button aktivieren
                             _ui.getErrorLabel().setText("");
                             _ui.getokayButton().setEnabled(true);
                             _ui.getRueckgeldLabel().setText("Dein Rückgeld beträgt: " + summe.getFormartiertenBetrag());
                         }
 
                     } else {
+                        // Error Message setzen und Button aus blenden
                         _ui.getErrorLabel().setText("Ungültiger Eintrag");
                         _ui.getokayButton().setEnabled(false);
                     }
@@ -123,18 +131,18 @@ public class BezahlungsWerkzeug {
         _ui.oeffneDialog();
     }
 
+    /**
+     * Es wird der Betrag des Restgeldes oder noch zuhalneden Geldes berechnet. Es
+     * wird immer ein positiver Betrag ausgegeben.
+     * Ob es sich um noch zuzahlen oder Rückgeld handelt muss extra geprüft werden.
+     * 
+     * @param zuZahlend Betrag der zuhalen ist
+     * @param kosten    Betrag der gezahlt wird
+     * @return Geldbetrag der Differenz
+     */
     public Geldbetrag berechneRestbetrag(Geldbetrag zuZahlend, Geldbetrag kosten) {
         Geldbetrag restSumme;
-        try {
-            restSumme = Geldbetrag.subtrahiere(zuZahlend, kosten);
-        } catch (Exception e) {
-            try {
-                restSumme = Geldbetrag.subtrahiere(kosten, zuZahlend);
-            } catch (Exception f) {
-                throw new IllegalArgumentException("Die Werte lassen sich nicht subtraheren");
-            }
-
-        }
+        restSumme = Geldbetrag.berechneDifferenz(zuZahlend, kosten);
 
         return restSumme;
     }

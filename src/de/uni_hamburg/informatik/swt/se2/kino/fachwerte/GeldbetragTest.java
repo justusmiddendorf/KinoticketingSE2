@@ -124,4 +124,19 @@ public class GeldbetragTest {
         // assertEquals(Geldbetrag.select(20, 00), g1.multipliziere(2));
     }
 
+    @Test
+    public void testeStringtoGeldbetrag() {
+        String wert1 = "10,10";
+        String wert2 = "0,0";
+        String wert3 = "151,00";
+
+        Geldbetrag berechnung1 = Geldbetrag.stringtoGeldbetrag(wert1);
+        Geldbetrag berechnung2 = Geldbetrag.stringtoGeldbetrag(wert2);
+        Geldbetrag berechnung3 = Geldbetrag.stringtoGeldbetrag(wert3);
+
+        assertEquals(Geldbetrag.select(10, 10), berechnung1);
+        assertEquals(Geldbetrag.select(0, 0), berechnung2);
+        assertEquals(Geldbetrag.select(151, 00), berechnung3);
+    }
+
 }

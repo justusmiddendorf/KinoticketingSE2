@@ -119,31 +119,6 @@ public final class Geldbetrag {
     }
 
     /**
-     * Die Subtraktion auf dem Geldbetrag.
-     * 
-     * @param wert1 der Wert von dem Abgezogen wird
-     * @param wert2 der Wert der Abgezogen wird
-     * @return Das Ergebnisse
-     * @throws IllegalArgumentException wenn der erste Wert kleiner ist als der
-     *                                  Zweite
-     */
-    public static Geldbetrag subtrahiere(Geldbetrag wert1, Geldbetrag wert2) {
-
-        if (istGroesserGleich(wert1, wert2)) {
-            int euroAnteil = wert1.getEuroAnteil() - wert2.getEuroAnteil();
-            int centAnteil = wert1.getCentAnteil() - wert2.getCentAnteil();
-
-            if (centAnteil < 0) {
-                euroAnteil--;
-                centAnteil += 100;
-            }
-
-            return select(euroAnteil, centAnteil);
-        }
-        throw new IllegalArgumentException("Der zweite Wert kann nciht vom ersten abgezogen werden, da er größer ist.");
-    }
-
-    /**
      * Berechnet die Differenz aus zwei Geldbeträgen.
      * 
      * @param betrag1 Der erste Geldbetrag
@@ -279,14 +254,18 @@ public final class Geldbetrag {
      * 
      * @param input Umzuwandelnder String
      * @return String als Geldbetrag
+     * 
+     * @assert String erfüllt das Regex "^-?(0|([1-9]\\d{0,6}))(,\\d{2})"
      */
     public static Geldbetrag stringtoGeldbetrag(String input) {
-
+        // Aufteilen des Strings in Euro & Cent Anteil
         String[] parts = input.split(",");
 
+        // Festlegen der Werte
         int firstNumber = Integer.parseInt(parts[0]);
         int secondNumber = Integer.parseInt(parts[1]);
 
+        // Holen oder erstellen des Betrages
         Geldbetrag neuerBetrag = select(firstNumber, secondNumber);
         return neuerBetrag;
     }
