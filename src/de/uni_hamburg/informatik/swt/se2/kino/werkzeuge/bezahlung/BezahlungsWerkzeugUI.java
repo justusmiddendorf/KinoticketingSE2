@@ -1,6 +1,7 @@
 package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlung;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -33,8 +34,11 @@ public class BezahlungsWerkzeugUI {
      */
     private JDialog erstelleDialog() {
         JDialog dialog = new JDialog();
+        dialog.setTitle("Verkauf fertigstellen");
         dialog.setSize(400, 400);
-        dialog.setLayout(new GridLayout(10, 3));
+        dialog.setLayout(new GridLayout(10, 3,5,10));
+        dialog.setModal(true);
+        //dialog.setBounds(400, 250, 400, 400); // zum eingaellen der Position
 
         JLabel label = new JLabel("Barzahlung");
         dialog.add(label, BorderLayout.NORTH);
@@ -46,14 +50,14 @@ public class BezahlungsWerkzeugUI {
         dialog.add(_preisDifferenzLabel, BorderLayout.NORTH);
 
         _okayButton = new JButton("OK");
-        dialog.add(_okayButton, BorderLayout.SOUTH);
+        dialog.add(_okayButton);
 
         _cancelButton = new JButton("Abbruch");
-        dialog.add(_cancelButton, BorderLayout.SOUTH);
+        dialog.add(_cancelButton);
 
-        _textField = new JTextField();
+        _textField = new JTextField("Bspw.: 6,00 oder 600 für eine einge von 6 Euro");
         _textField.setSize(200, 20);
-        dialog.add(_textField, BorderLayout.CENTER);
+        dialog.add(_textField, 3);
 
         return dialog;
     }
