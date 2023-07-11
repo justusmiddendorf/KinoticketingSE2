@@ -44,8 +44,9 @@ public class BezahlungsWerkzeug {
         _ui.getCancelButton().addActionListener(e -> _ui.getModal().setVisible(false));
 
         _ui.getokayButton().addActionListener(e -> {
-            _ui.getModal().setModal(false);
             _platzVerkaufsWerkzeug.verkaufePlaetze(_vorstellung);
+            _ui.getModal().setModal(false);
+            _ui.getModal().setVisible(false);
         });
 
         // Hinzufügen eines documentLiseners
