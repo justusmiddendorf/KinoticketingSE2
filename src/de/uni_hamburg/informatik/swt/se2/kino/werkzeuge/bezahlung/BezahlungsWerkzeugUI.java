@@ -50,9 +50,11 @@ public class BezahlungsWerkzeugUI {
         dialog.add(_preisDifferenzLabel, BorderLayout.NORTH);
 
         _okayButton = new JButton("OK");
+        _okayButton.setBackground(Color.GREEN);
         dialog.add(_okayButton);
 
         _cancelButton = new JButton("Abbruch");
+        _cancelButton.setBackground(Color.RED);
         dialog.add(_cancelButton);
 
         _textField = new JTextField("Bspw.: 6,00 oder 600 für eine einge von 6 Euro");
