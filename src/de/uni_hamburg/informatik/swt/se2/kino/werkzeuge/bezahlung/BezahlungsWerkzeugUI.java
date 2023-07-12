@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -49,14 +50,17 @@ public class BezahlungsWerkzeugUI {
         _preisDifferenzLabel = new JLabel("Restbetrag: ");
         dialog.add(_preisDifferenzLabel, BorderLayout.NORTH);
 
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 5), false);
+
         _okayButton = new JButton("OK");
         _okayButton.setBackground(Color.GREEN);
-        dialog.add(_okayButton);
+        buttonPanel.add(_okayButton);
 
         _cancelButton = new JButton("Abbruch");
         _cancelButton.setBackground(Color.RED);
-        dialog.add(_cancelButton);
+        buttonPanel.add(_cancelButton);
 
+        dialog.add(buttonPanel);
         _textField = new JTextField("Bspw.: 6,00 oder 600 für eine einge von 6 Euro");
         _textField.setSize(200, 20);
         dialog.add(_textField, 3);
