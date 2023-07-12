@@ -87,7 +87,7 @@ public class PlatzVerkaufsWerkzeug {
      */
     private void fuehreBarzahlungDurch() {
         BezahlungsWerkzeug bezahlungsWerkzeug = new BezahlungsWerkzeug(this, _vorstellung, _geldBetrag);
-        bezahlungsWerkzeug.barzahlungstarten(_geldBetrag);
+        bezahlungsWerkzeug.barzahlungstarten();
     }
 
     /**

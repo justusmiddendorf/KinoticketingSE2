@@ -255,7 +255,6 @@ public final class Geldbetrag {
      * @param input Umzuwandelnder String
      * @return String als Geldbetrag
      * 
-     * @assert String erfüllt das Regex "^-?(0|([1-9]\\d{0,6}))(,\\d{2})"
      */
     public static Geldbetrag stringtoGeldbetrag(String input) {
         // Aufteilen des Strings in Euro & Cent Anteil

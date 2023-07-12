@@ -45,7 +45,6 @@ public class BezahlungsWerkzeug {
 
         _ui.getokayButton().addActionListener(e -> {
             _platzVerkaufsWerkzeug.verkaufePlaetze(_vorstellung);
-            _ui.getModal().setModal(false);
             _ui.getModal().setVisible(false);
         });
 
@@ -117,7 +116,7 @@ public class BezahlungsWerkzeug {
     /**
      * Starten der Barzahlung.
      */
-    public void barzahlungstarten(Geldbetrag gesammtSumme) {
+    public void barzahlungstarten() {
         _ui.oeffneDialog();
     }
 
